@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantillas/plantillavistas.xhtml">
+
+            <ui:define name="barrita">
+                <section class="ptb-0">
+                    <div class="mb-30 brdr-ash-1 opacty-5"></div>
+                    <div class="container">
+                        <a class="mt-10" href="agregarCargo_Empleado.xhtml"><i class="mr-5 ion-ios-home"></i>Cargos por Empleados<i class="mlr-10 ion-chevron-right"></i></a>
+                        <a class="color-ash mt-10" href="modificarCargo_Empleado.xhtml">Modificaciones</a>
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+            <ui:define name="contenido">
+                <section>
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-8">
+                                <h3><b>MODIFICACIONES DE CARGOS PARA EMPLEADOS</b></h3>
+                                <p class="mb-30 mr-100 mr-sm-0">Modifique los datos de los cargos por empleados</p>
+                                <h:form class="form-block form-bold form-mb-20 form-h-35 form-brdr-b-grey pr-50 pr-sm-0">
+                                    <div class="row">
+                                        <div class="col-sm-3">	
+                                            <p class="color-ash">DNI de Empleado*</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{modificarCargoEmpleado.cemp.empleado.dniEmpleado}" id="ecdni" converterMessage="Debe ser un numero" disabled="#{modificarCargoEmpleado.isExecutedModificar}">
+                                                    <f:convertNumber></f:convertNumber>
+                                                </h:inputText>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-3 -->
+                                        <div class="col-sm-3">	
+                                            <p class="color-ash">Organismo*</p>
+                                            <div class="pos-relative">
+                                                <h:selectOneMenu class="browser-default custom-select" value="#{modificarCargoEmpleado.cemp.organismo.codigoOrganismo}" disabled="#{modificarCargoEmpleado.isExecutedModificar or loginManager.usuarioActual.tipoUsuario=='AOrganismo'}">
+                                                    <f:selectItem itemLabel="--Seleccione--" itemValue="#{0}"></f:selectItem>
+                                                    <f:selectItems value="#{modificarCargoEmpleado.organismo}" var="p"
+                                                                   itemValue="#{p.codigoOrganismo}" itemLabel="#{p.nombreOrganismo}"></f:selectItems>
+                                                </h:selectOneMenu>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-3 -->
+                                        <div class="col-sm-3">	
+                                            <p class="color-ash">Cargo*</p>
+                                            <div class="pos-relative">
+                                                <h:selectOneMenu class="browser-default custom-select" value="#{modificarCargoEmpleado.cemp.cargoEmpleadoPK.idCargo}" disabled="#{modificarCargoEmpleado.isExecutedModificar}">
+                                                    <f:selectItem itemLabel="--Seleccione--" itemValue="#{0}"></f:selectItem>
+                                                    <f:selectItems value="#{modificarCargoEmpleado.cargos}" var="p"
+                                                                   itemValue="#{p.idCargo}" itemLabel="#{p.nombreCargo}"></f:selectItems>
+                                                </h:selectOneMenu>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-3 -->
+                                        <div class="col-sm-3">	
+                                            <p class="color-ash">Categoria*</p>
+                                            <div class="pos-relative">
+                                                <h:selectOneMenu class="browser-default custom-select" value="#{modificarCargoEmpleado.cemp.cargoEmpleadoPK.idCategoria}" disabled="#{modificarCargoEmpleado.isExecutedModificar}">
+                                                    <f:selectItem itemLabel="--Seleccione--" itemValue="#{0}"></f:selectItem>
+                                                    <f:selectItems value="#{modificarCargoEmpleado.categorias}" var="p"
+                                                                   itemValue="#{p.idCategoria}" itemLabel="#{p.codigoCategoria}"></f:selectItems>
+                                                </h:selectOneMenu>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-3 -->
+                                        <div class="col-sm-3">
+                                            <h:message class="alert alert-warning" for="ecdni"></h:message>
+                                        </div>
+                                        <div class="col-sm-3">
+
+                                        </div>
+                                        <div class="col-sm-3">
+
+                                        </div>
+                                        <div class="col-sm-3">
+
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-warning" role="alert" rendered="#{modificarCargoEmpleado.isExcecuted and modificarCargoEmpleado.existe}" value="#{modificarCargoEmpleado.devolverMensaje()}"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:commandButton class="btn btn-warning" value="Verificar" action="#{modificarCargoEmpleado.verificarCargoEmpleado()}">
+                                            </h:commandButton>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <h:panelGroup rendered="#{modificarCargoEmpleado.exito==false and modificarCargoEmpleado.isExcecuted==false and modificarCargoEmpleado.existe}" class="alert alert-warning" layout="block">
+                                                <h:outputText value="Hubo un problema!!!!!"></h:outputText><br></br>
+                                                <h:outputText rendered="#{modificarCargoEmpleado.existeEmpleado==false}" value="El empleado no existe o esta dado de baja."></h:outputText>
+                                                <h:outputText rendered="#{modificarCargoEmpleado.existeOrganismo==false}" value="El organismo no existe o esta dado de baja."></h:outputText>
+                                                <h:outputText rendered="#{modificarCargoEmpleado.existeCargo==false}" value="El cargo no existe o esta dado de baja."></h:outputText>
+                                                <h:outputText rendered="#{modificarCargoEmpleado.existeCategoria==false}" value="La categoria no existe o esta dado de baja"></h:outputText>
+                                            </h:panelGroup>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-success" role="alert" value="MODIFICACION EXITOSA!!!!&lt;br /&gt;
+                                                          DNI de Empleado: #{modificarCargoEmpleado.cemp.empleado.dniEmpleado}.&lt;br /&gt;
+                                                          Nombre de Organismo: #{modificarCargoEmpleado.cemp.organismo.nombreOrganismo}.&lt;br /&gt;
+                                                          Nombre de Cargo: #{modificarCargoEmpleado.cemp.cargo.nombreCargo}.&lt;br /&gt;
+                                                          Codigo de Categoria: #{modificarCargoEmpleado.cemp.categoria.codigoCategoria}.&lt;br /&gt;
+                                                          Fecha de Ingreso: #{modificarCargoEmpleado.convertFecha()}.&lt;br /&gt;
+                                                          " escape="false" rendered="#{modificarCargoEmpleado.isExcecuted==false and modificarCargoEmpleado.exito}"></h:outputText>
+                                        </div>
+                                    </div><!-- row -->
+                                </h:form>
+                                <h:dataTable class="table" value="#{modificarCargoEmpleado.cel}" var="p" rendered="#{modificarCargoEmpleado.cel.size()>0 and modificarCargoEmpleado.isExcecuted}">
+                                    <h:column>
+                                        <f:facet name="header">DNI</f:facet>
+                                            #{p.empleado.dniEmpleado}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Nombre del Organismo</f:facet>
+                                            #{p.organismo.nombreOrganismo}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Nombre del Cargo</f:facet>
+                                            #{p.cargo.nombreCargo}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Codigo de Categoria</f:facet>
+                                            #{p.categoria.codigoCategoria}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Accion</f:facet>
+                                        <h:form>
+                                            <h:commandButton class="btn btn-warning" value="Modificar" action="#{modificarCargoEmpleado.modificar(p)}">
+                                            </h:commandButton>
+                                        </h:form>
+                                    </h:column>
+                                </h:dataTable>
+                                <h:panelGroup rendered="#{modificarCargoEmpleado.isExecutedModificar}" layout="block">
+                                    <h:form class="form-block form-bold form-mb-20 form-h-35 form-brdr-b-grey pr-50 pr-sm-0">
+                                        <div class="row">
+                                            <div class="col-sm-6">	
+                                                <p class="color-ash">Categoria*</p>
+                                                <div class="pos-relative">
+                                                    <h:selectOneMenu class="browser-default custom-select" value="#{modificarCargoEmpleado.cemp.cargoEmpleadoPK.idCategoria}" disabled="#{modificarCargoEmpleado.existe}" required="true"
+                                                                     requiredMessage="Debe seleccionar una categoria" id="cat">
+                                                        <f:selectItem itemLabel="--Seleccione--" itemValue="#{null}"></f:selectItem>
+                                                        <f:selectItems value="#{modificarCargoEmpleado.categorias}" var="p"
+                                                                       itemValue="#{p.idCategoria}" itemLabel="#{p.codigoCategoria}"></f:selectItems>
+                                                    </h:selectOneMenu>
+                                                    <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                                </div><!-- pos-relative -->
+                                            </div><!-- col-sm-3 -->
+                                            <div class="col-sm-6">	
+                                                <p class="color-ash">Fecha de Ingreso*</p>
+                                                <div class="pos-relative">
+                                                    <h:inputText class="pr-20" value="#{modificarCargoEmpleado.cemp.fechaIngresoOrganismo}" id="efecha" required="true"
+                                                                 requiredMessage="Debe ingresar la fecha" converterMessage="Ingrese una fecha valida (dd/mm/yyyy)">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03"/>
+                                                    </h:inputText>
+                                                    <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                                </div><!-- pos-relative -->
+                                            </div><!-- col-sm-6 -->
+
+                                            <div class="col-sm-6">	
+                                                <h:message for="cat" class="alert alert-danger" role="alert"></h:message>
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">	
+                                                <h:message for="efecha" class="alert alert-danger" role="alert"></h:message>
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+                                                <h:commandButton class="btn btn-warning" value="Modificar" action="#{modificarCargoEmpleado.confirmarCambio()}">
+                                                </h:commandButton>
+                                            </div><!-- col-sm-6 -->  
+                                            <div class="col-sm-6">
+                                                <h:commandButton class="btn btn-warning" value="Cancelar" action="#{modificarCargoEmpleado.cancelar()}" immediate="true">
+                                                </h:commandButton>
+                                            </div><!-- col-sm-6 -->
+                                        </div>
+                                    </h:form>
+                                </h:panelGroup>
+                            </div><!-- col-md-6 -->
+
+                            <div class="col-sm-12 col-md-4">
+                                <h3 class="mb-20 mt-sm-50"><b>INFORMACION DE CAMPOS</b></h3>
+
+                                <ul class="font-11 list-relative list-li-pl-30 list-block list-li-mb-15">
+                                        <li><i class="abs-tl ion-android-add-circle"></i>DNI: maximo de 20 digitos</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Organismo: menu con listado de organismos</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Cargo: menu con listado de cargos</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Categoria: menu con listado de categorias</li>
+                                
+                                </ul>
+                            </div><!-- col-md-6 -->
+                        </div><!-- row -->
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

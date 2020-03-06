@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantillas/plantillavistas.xhtml">
+
+            <ui:define name="barrita">
+                <section class="ptb-0">
+                    <div class="mb-30 brdr-ash-1 opacty-5"></div>
+                    <div class="container">
+                        <a class="mt-10" href="agregarCategoria.xhtml"><i class="mr-5 ion-ios-home"></i>Categorias<i class="mlr-10 ion-chevron-right"></i></a>
+                        <a class="color-ash mt-10" href="modificarCategoria.xhtml">Modificaciones</a>
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+            <ui:define name="contenido">
+                <section>
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-8">
+                                <h3><b>MODIFICACIONES DE CATEGORIAS</b></h3>
+                                <p class="mb-30 mr-100 mr-sm-0">Modifique los datos de las categorias</p>
+                                <h:form class="form-block form-bold form-mb-20 form-h-35 form-brdr-b-grey pr-50 pr-sm-0">
+                                    <div class="row">
+                                        <div class="col-sm-6">							
+                                            <p class="color-ash">Codigo</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{modificarCategoria.cat.codigoCategoria}" id="cCodCat" disabled="#{modificarCategoria.exist}"/>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:outputText class="alert alert-warning" role="alert" rendered="#{modificarCategoria.isExcecuted and modificarCategoria.exist}" value="#{modificarCategoria.devolverMensaje()}"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h:outputText class="alert alert-warning" role="alert" rendered="#{modificarCategoria.isExcecuted and modificarCategoria.exist==false}" value="No existe la categoria"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:commandButton class="btn btn-warning" value="Verificar" action="#{modificarCategoria.verificarCategoria()}">
+                                            </h:commandButton>
+                                        </div>
+                                        <h:panelGroup rendered="#{modificarCategoria.exist}" layout="block">
+                                            <div class="col-sm-6">	
+                                                <p class="color-ash">Sueldo Basico*</p>
+                                                <div class="pos-relative">
+                                                    <h:inputText class="pr-20" value="#{modificarCategoria.cat.sueldoCategoria}" id="cSueldo" required="true"
+                                                                 requiredMessage="Debe ingresar un monto"
+                                                                 validatorMessage="Debe ser mayor a 0">
+                                                        <f:validateLength minimum="1" maximum="30"></f:validateLength>
+                                                    </h:inputText>
+                                                    <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                                </div><!-- pos-relative -->
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h:message for="cSueldo" class="alert alert-danger" role="alert"></h:message>
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+                                                <h:commandButton class="btn btn-warning" value="Modificar" action="#{modificarCategoria.confirmarCambio()}">
+                                                </h:commandButton>
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+                                                <h:commandButton class="btn btn-warning" value="Cancelar" action="#{modificarCategoria.cancelar()}" immediate="true">
+                                                </h:commandButton>
+                                            </div><!-- col-sm-6 -->
+
+                                        </h:panelGroup>
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-success" role="alert" value="MODIFICACION EXITOSA!!!!&lt;br /&gt;
+                                                          Codigo: #{modificarCategoria.cat.codigoCategoria}.&lt;br /&gt;
+                                                          Sueldo Basico: #{modificarCategoria.cat.sueldoCategoria}.&lt;br /&gt;" escape="false" rendered="#{modificarCategoria.isExcecuted==false and modificarCategoria.exito}"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-danger" role="alert" value="MODIFICACION IMPOSIBLE!!!!&lt;br /&gt;
+                                                          La categoria tiene cargos asignados.&lt;br /&gt;" escape="false" rendered="#{modificarCategoria.isExcecuted and modificarCategoria.existece}"></h:outputText>
+                                        </div>
+                                    </div><!-- row -->
+                                </h:form>
+                            </div><!-- col-md-6 -->
+
+                            <div class="col-sm-12 col-md-4">
+                                <h3 class="mb-20 mt-sm-50"><b>INFORMACION DE CAMPOS</b></h3>
+
+                                <ul class="font-11 list-relative list-li-pl-30 list-block list-li-mb-15">
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Codigo: numerico, maximo de 11 digitos no vacio.</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Sueldo: numerico decimal, maximo de 13 digitos enteros y 2 decimales.</li>
+                                </ul>
+                            </div><!-- col-md-6 -->
+                        </div><!-- row -->
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

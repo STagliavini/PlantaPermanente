@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="../plantillas/plantillavistas.xhtml">
+
+            <ui:define name="barrita">
+                <section class="ptb-0">
+                    <div class="mb-30 brdr-ash-1 opacty-5"></div>
+                    <div class="container">
+                        <a class="mt-10" href="cambiarContrasenia.xhtml"><i class="mr-5 ion-ios-home"></i>Cambiar Contrasenia</a>
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+            <ui:define name="contenido">
+                <section>
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-8">
+                                <h3><b>CAMBIO DE CONTRASENIA</b></h3>
+                                <p class="mb-30 mr-100 mr-sm-0">Ingrese la nueva contrasenia</p>
+                                <h:form class="form-block form-bold form-mb-20 form-h-35 form-brdr-b-grey pr-50 pr-sm-0">
+                                    <div class="row">
+
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Contrasenia Anterior*</p>
+                                            <div class="pos-relative">
+                                                <h:inputSecret class="pr-20" value="#{cambiarContrasenia.contrasenia_anterior}" id="cAnt" validatorMessage="La longitud debe ser mayor a 0 y menor a 31 digitos"
+                                                             required="true" requiredMessage="Debe ingresar la contrasenia">
+                                                    <f:validateLength minimum="0" maximum="30"></f:validateLength>
+                                                </h:inputSecret>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="cAnt" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Contrasenia Nueva*</p>
+                                            <div class="pos-relative">
+                                                <h:inputSecret class="pr-20" value="#{cambiarContrasenia.contrasenia_nueva}" id="cNueva" validatorMessage="La longitud debe ser mayor a 0 y menor a 31 digitos"
+                                                             required="true" requiredMessage="Debe ingresar la contrasenia">
+                                                    <f:validateLength minimum="0" maximum="30"></f:validateLength>
+                                                </h:inputSecret>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="cNueva" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Confirmar Contrasenia*</p>
+                                            <div class="pos-relative">
+                                                <h:inputSecret class="pr-20" value="#{cambiarContrasenia.contrasenia_confirmar}" id="cConf" validatorMessage="La longitud debe ser mayor a 0 y menor a 31 digitos"
+                                                             required="true" requiredMessage="Debe ingresar la contrasenia">
+                                                    <f:validateLength minimum="0" maximum="30"></f:validateLength>
+                                                </h:inputSecret>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="cConf" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <h:panelGroup layout="block" class="col-sm-12" rendered="#{cambiarContrasenia.contrasenia_coincide==false and cambiarContrasenia.isExecuted}">
+                                            <h:outputText class="alert alert-danger" value="La contrasenia ingresada no coincide con la anterior. Puede solicitar una nueva clave al gestor de la base de datos."></h:outputText>
+                                        </h:panelGroup><!-- col-sm-12 -->
+                                        <h:panelGroup layout="block" class="col-sm-12" rendered="#{cambiarContrasenia.contrasenia_iguales==false and cambiarContrasenia.isExecuted}">
+                                            <h:outputText class="alert alert-danger" value="Deben coincidir la contrasenia nueva y la confirmacion"></h:outputText>
+                                        </h:panelGroup><!-- col-sm-12 -->
+                                        <div class="col-sm-6">
+                                            <h:commandButton class="btn btn-warning" value="Confirmar" action="#{cambiarContrasenia.confirmarCambio()}">
+                                            </h:commandButton>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h:commandButton class="btn btn-warning" value="Cancelar" action="#{cambiarContrasenia.cancelar()}" immediate="true">
+                                            </h:commandButton>
+                                        </div>
+                                        <h:panelGroup layout="block" class="col-sm-12" rendered="#{cambiarContrasenia.contrasenia_iguales and cambiarContrasenia.contrasenia_coincide}">
+                                            <h:outputText class="alert alert-success" value="Contrasenia cambiada exitosamente"></h:outputText>
+                                        </h:panelGroup><!-- col-sm-12 -->
+                                    </div><!-- row -->
+                                </h:form>
+                            </div><!-- col-md-6 -->
+
+                            <div class="col-sm-12 col-md-4">
+                                <h3 class="mb-20 mt-sm-50"><b>INFORMACION DE CAMPOS</b></h3>
+
+                                <ul class="font-11 list-relative list-li-pl-30 list-block list-li-mb-15">
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Contrasenia Anterior: texto, maximo de 30 caracteres.</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Contrasenia Nueva: texto, maximo de 30 caracteres.</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Confirmar Contrasenia: texto, maximo de 30 caracteres.</li>
+                                </ul>
+                            </div><!-- col-md-6 -->
+                        </div><!-- row -->
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

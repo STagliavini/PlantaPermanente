@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantillas/plantillavistas.xhtml">
+
+            <ui:define name="barrita">
+                <section class="ptb-0">
+                    <div class="mb-30 brdr-ash-1 opacty-5"></div>
+                    <div class="container">
+                        <a class="mt-10" href="agregarEmpleado.xhtml"><i class="mr-5 ion-ios-home"></i>Empleados<i class="mlr-10 ion-chevron-right"></i></a>
+                        <a class="color-ash mt-10" href="modificarEmpleado.xhtml">Modificaciones</a>
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+            <ui:define name="contenido">
+                <section>
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-8">
+                                <h3><b>MODIFICACIONES DE EMPLEADOS</b></h3>
+                                <p class="mb-30 mr-100 mr-sm-0">Modifique los datos de los empleados</p>
+                                <h:form class="form-block form-bold form-mb-20 form-h-35 form-brdr-b-grey pr-50 pr-sm-0">
+                                    <div class="row">
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">DNI</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{modificarEmpleado.emp.dniEmpleado}" id="edni" disabled="#{modificarEmpleado.exist}"/>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">							
+                                            <p class="color-ash">Codigo</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{modificarEmpleado.emp.codigoEmpleado}" id="ecodigo" disabled="#{modificarEmpleado.exist}"/>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:outputText class="alert alert-warning" role="alert" rendered="#{modificarEmpleado.isExcecuted and modificarEmpleado.exist}" value="#{modificarEmpleado.devolverMensaje()}"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h:outputText class="alert alert-warning" role="alert" rendered="#{modificarEmpleado.isExcecuted and modificarEmpleado.exist==false}" value="No existe el empleado"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:commandButton class="btn btn-warning" value="Verificar" action="#{modificarEmpleado.verificarEmpleado()}">
+                                            </h:commandButton>
+                                        </div>
+                                        <h:panelGroup rendered="#{modificarEmpleado.exist}" layout="block">
+                                            <div class="col-sm-6">	
+                                                <p class="color-ash">Apellido*</p>
+                                                <div class="pos-relative">
+                                                    <h:inputText class="pr-20" value="#{modificarEmpleado.emp.apellidoEmpleado}" id="eapellido" required="true"
+                                                                 requiredMessage="Debe ingresar el apellido"
+                                                                 validatorMessage="Maximo de 30 caracteres">
+                                                        <f:validateLength minimum="1" maximum="30"></f:validateLength>
+                                                    </h:inputText>
+                                                    <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                                </div><!-- pos-relative -->
+                                            </div>
+                                            <div class="col-sm-6">	
+                                                <p class="color-ash">Nombre*</p>
+                                                <div class="pos-relative">
+                                                    <h:inputText class="pr-20" value="#{modificarEmpleado.emp.nombreEmpleado}" id="enombre" required="true"
+                                                                 requiredMessage="Debe ingresar el nombre"
+                                                                 validatorMessage="Maximo de 30 caracteres">
+                                                        <f:validateLength minimum="1" maximum="30"></f:validateLength>
+                                                    </h:inputText>
+                                                    <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                                </div><!-- pos-relative -->
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+                                                <h:message for="eapellido" class="alert alert-danger" role="alert"></h:message>
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+                                                <h:message for="enombre" class="alert alert-danger" role="alert"></h:message>
+                                            </div><!-- col-sm-6 -->
+
+                                            <div class="col-sm-6">	
+                                                <p class="color-ash">Fecha de Nacimiento*</p>
+                                                <div class="pos-relative">
+                                                    <h:inputText class="pr-20" value="#{modificarEmpleado.emp.nacimientoEmpleado}" id="efecha" required="true"
+                                                                 requiredMessage="Debe ingresar la fecha" converterMessage="Ingrese una fecha valida (dd/mm/yyyy)">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03"/>
+                                                    </h:inputText>
+                                                    <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                                </div><!-- pos-relative -->
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">	
+                                                <p class="color-ash">Sexo*</p>
+                                                <div class="pos-relative">
+                                                    <h:selectOneMenu class="browser-default custom-select" value="#{modificarEmpleado.emp.sexoEmpleado}"> 
+                                                        <f:selectItem itemValue = "Masculino" itemLabel = "Masculino" /> 
+                                                        <f:selectItem itemValue = "Femenino" itemLabel = "Femenino" /> 
+                                                    </h:selectOneMenu> 	
+                                                    <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                                </div><!-- pos-relative -->
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+                                                <h:message for="efecha" class="alert alert-danger" role="alert"></h:message>
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">	
+                                                <p class="color-ash">Telefono</p>
+                                                <div class="pos-relative">
+                                                    <h:inputText class="pr-20" value="#{modificarEmpleado.emp.telefonoEmpleado}" id="etelefono">
+                                                        <f:validator validatorId="telValidator"></f:validator>
+                                                    </h:inputText>
+                                                    <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                                </div><!-- pos-relative -->
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">	
+                                                <p class="color-ash">Direccion*</p>
+                                                <div class="pos-relative">
+                                                    <h:inputText class="pr-20" value="#{modificarEmpleado.emp.direccionEmpleado}" id="edireccion" required="true"
+                                                                 requiredMessage="Debe ingresar la direccion" validatorMessage="Maximo de 100 caracteres">
+                                                        <f:validateLength minimum="1" maximum="100"></f:validateLength>
+                                                    </h:inputText>
+                                                    <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                                </div><!-- pos-relative -->
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+                                                <h:message for="etelefono" class="alert alert-danger" role="alert"></h:message>
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+                                                <h:message for="edireccion" class="alert alert-danger" role="alert"></h:message>
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">	
+                                                <p class="color-ash">Mail</p>
+                                                <div class="pos-relative">
+                                                    <h:inputText class="pr-20" value="#{modificarEmpleado.emp.mailEmpleado}" id="email">
+                                                        <f:validator validatorId="emailValidator"></f:validator>
+                                                    </h:inputText>
+                                                    <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                                </div><!-- pos-relative -->
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+                                                <h:message for="email" class="alert alert-danger" role="alert"></h:message>
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+                                                <h:commandButton class="btn btn-warning" value="Modificar" action="#{modificarEmpleado.confirmarCambio()}">
+                                                </h:commandButton>
+                                            </div><!-- col-sm-6 -->
+                                            <div class="col-sm-6">
+                                                <h:commandButton class="btn btn-warning" value="Cancelar" action="#{modificarEmpleado.cancelar()}" immediate="true">
+                                                </h:commandButton>
+                                            </div><!-- col-sm-6 -->
+
+                                        </h:panelGroup>
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-success" role="alert" value="MODIFICACION EXITOSA!!!!&lt;br /&gt;
+                                                          DNI: #{modificarEmpleado.emp.dniEmpleado}.&lt;br /&gt;
+                                                          Apellido: #{modificarEmpleado.emp.apellidoEmpleado}.&lt;br /&gt;
+                                                          Nombre: #{modificarEmpleado.emp.nombreEmpleado}.&lt;br /&gt;
+                                                          Fecha de Nacimiento: #{modificarEmpleado.convertFecha()}.&lt;br /&gt;
+                                                          Sexo: #{modificarEmpleado.emp.sexoEmpleado}.&lt;br /&gt;
+                                                          Telefono: #{modificarEmpleado.emp.telefonoEmpleado}.&lt;br /&gt;
+                                                          Direccion: #{modificarEmpleado.emp.direccionEmpleado}.&lt;br /&gt;
+                                                          Mail: #{modificarEmpleado.emp.mailEmpleado}.&lt;br /&gt;" escape="false" rendered="#{modificarEmpleado.isExcecuted==false and modificarEmpleado.exito}"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-danger" role="alert" value="MODIFICACION IMPOSIBLE!!!!&lt;br /&gt;
+                                                          El empleado tiene cargos asignados.&lt;br /&gt;" escape="false" rendered="#{modificarEmpleado.isExcecuted and modificarEmpleado.existece}"></h:outputText>
+                                        </div>
+                                    </div><!-- row -->
+                                </h:form>
+                            </div><!-- col-md-6 -->
+
+                            <div class="col-sm-12 col-md-4">
+                                <h3 class="mb-20 mt-sm-50"><b>INFORMACION DE CAMPOS</b></h3>
+
+                                <ul class="font-11 list-relative list-li-pl-30 list-block list-li-mb-15">
+                                    <li><i class="abs-tl ion-android-add-circle"></i>DNI: numero, maximo de 20 digitos, no vacio.</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Codigo: maximo de 11 digitos.</li>
+                                </ul>
+                            </div><!-- col-md-6 -->
+                        </div><!-- row -->
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

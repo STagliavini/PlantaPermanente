@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantillas/plantillavistas.xhtml">
+
+            <ui:define name="barrita">
+                <section class="ptb-0">
+                    <div class="mb-30 brdr-ash-1 opacty-5"></div>
+                    <div class="container">
+                        <a class="mt-10" href="agregarCargo_Empleado.xhtml"><i class="mr-5 ion-ios-home"></i>Cargos por Empleados<i class="mlr-10 ion-chevron-right"></i></a>
+                        <a class="color-ash mt-10" href="agregarCargo_Empleado.xhtml">Altas</a>
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+            <ui:define name="contenido">
+                <section>
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-8">
+                                <h3><b>ALTAS DE CARGOS POR EMPLEADOS</b></h3>
+                                <p class="mb-30 mr-100 mr-sm-0">Ingrese los datos de los cargos para empleados</p>
+                                <h:form class="form-block form-bold form-mb-20 form-h-35 form-brdr-b-grey pr-50 pr-sm-0">
+                                    <div class="row">
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">DNI*</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{agregarCargoEmpleado.cemp.empleado.dniEmpleado}" id="ecdni" validatorMessage="Debe tener un maximo de 8 digitos y un minimo de 1"
+                                                             required="true" requiredMessage="Debe ingresar el DNI" converterMessage="Debe ser un numero">
+                                                    <f:validateLongRange minimum="1" maximum="99999999"/>
+                                                    <f:convertNumber/>
+                                                </h:inputText>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Id de Organismo*</p>
+                                            <div class="pos-relative">
+                                                <h:selectOneMenu class="browser-default custom-select" value="#{agregarCargoEmpleado.cemp.organismo.codigoOrganismo}" required="true" id="ecorganismo" requiredMessage="Debe ingresar un organismo"
+                                                                 disabled="#{loginManager.usuarioActual.tipoUsuario=='AOrganismo'}">
+                                                    <f:selectItem itemLabel="--Seleccione--" itemValue="#{null}"></f:selectItem>
+                                                    <f:selectItems value="#{agregarCargoEmpleado.organismos}" var="p"
+                                                                   itemValue="#{p.codigoOrganismo}" itemLabel="#{p.nombreOrganismo}"></f:selectItems>
+                                                </h:selectOneMenu>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="ecdni" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="ecorganismo" class="alert alert-danger" role="alert" ></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Id de Cargo*</p>
+                                            <div class="pos-relative">
+                                                <h:selectOneMenu class="browser-default custom-select" value="#{agregarCargoEmpleado.cemp.cargoEmpleadoPK.idCargo}" id="eccargo" required="true" requiredMessage="Debe ingresar un cargo">
+                                                    <f:selectItem itemLabel="--Seleccione--" itemValue="#{null}"></f:selectItem>
+                                                    <f:selectItems value="#{agregarCargoEmpleado.cargos}" var="p"
+                                                                   itemValue="#{p.idCargo}" itemLabel="#{p.nombreCargo}"></f:selectItems>
+                                                </h:selectOneMenu>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Id de Categoria*</p>
+                                            <div class="pos-relative">
+                                                <h:selectOneMenu class="browser-default custom-select" value="#{agregarCargoEmpleado.cemp.cargoEmpleadoPK.idCategoria}" id="eccategoria" required="true" requiredMessage="Debe ingresar una categoria">
+                                                    <f:selectItem itemLabel="--Seleccione--" itemValue="#{null}"></f:selectItem>
+                                                    <f:selectItems value="#{agregarCargoEmpleado.categorias}" var="p"
+                                                                   itemValue="#{p.idCategoria}" itemLabel="#{p.codigoCategoria}"></f:selectItems>
+                                                </h:selectOneMenu>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="eccargo" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="eccategoria" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Fecha de Ingreso*</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{agregarCargoEmpleado.cemp.fechaIngresoOrganismo}" id="efecha" required="true"
+                                                             requiredMessage="Debe ingresar la fecha" converterMessage="Ingrese una fecha valida (dd/mm/yyyy)">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03"/>
+                                                </h:inputText>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="efecha" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-warning" role="alert" rendered="#{agregarCargoEmpleado.existe}" value="#{agregarCargoEmpleado.devolverMensaje()}"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-warning" role="alert" rendered="#{agregarCargoEmpleado.otroEmpleado}" value="El cargo esta ocupado por otro empleado"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h:commandButton class="btn btn-warning" value="Agregar" action="#{agregarCargoEmpleado.guardarCargoEmpleado()}">
+                                            </h:commandButton>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h:commandButton class="btn btn-warning" value="Cancelar" action="#{agregarCargoEmpleado.cancelar()}" immediate="true">
+                                            </h:commandButton>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:panelGroup rendered="#{agregarCargoEmpleado.exito==false and agregarCargoEmpleado.isExcecuted and agregarCargoEmpleado.existe==false}" class="alert alert-warning" layout="block">
+                                                <h:outputText value="Hubo un problema!!!!!"></h:outputText><br></br>
+                                                <h:outputText rendered="#{agregarCargoEmpleado.existeEmpleado==false}" value="El empleado no existe o esta dado de baja."></h:outputText>
+                                                <h:outputText rendered="#{agregarCargoEmpleado.existeOrganismo==false}" value="El organismo no existe o esta dado de baja."></h:outputText>
+                                                <h:outputText rendered="#{agregarCargoEmpleado.existeCargo==false}" value="El cargo no existe o esta dado de baja."></h:outputText>
+                                                <h:outputText rendered="#{agregarCargoEmpleado.existeCategoria==false}" value="La categoria no existe o esta dado de baja"></h:outputText>
+                                            </h:panelGroup>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-success" role="alert" value="INGRESO EXITOSO!!!!&lt;br /&gt;
+                                                          Codigo de Empleado: #{agregarCargoEmpleado.most.empleado.codigoEmpleado}.&lt;br /&gt;
+                                                          Nombre de Organismo: #{agregarCargoEmpleado.most.organismo.nombreOrganismo}.&lt;br /&gt;
+                                                          Nombre de Cargo: #{agregarCargoEmpleado.most.cargo.nombreCargo}.&lt;br /&gt;
+                                                          Codigo de Categoria: #{agregarCargoEmpleado.most.categoria.codigoCategoria}.&lt;br /&gt;
+                                                          Fecha de Ingreso: #{agregarCargoEmpleado.convertFecha()}.&lt;br /&gt;
+                                                          " escape="false" rendered="#{agregarCargoEmpleado.isExcecuted and agregarCargoEmpleado.exito}"></h:outputText>
+                                        </div>
+                                    </div><!-- row -->
+                                </h:form>
+                            </div><!-- col-md-6 -->
+
+                            <div class="col-sm-12 col-md-4">
+                                <h3 class="mb-20 mt-sm-50"><b>INFORMACION DE CAMPOS</b></h3>
+
+                                <ul class="font-11 list-relative list-li-pl-30 list-block list-li-mb-15">
+                                    <li><i class="abs-tl ion-android-add-circle"></i>DNI: maximo de 20 digitos</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Organismo: menu con listado de organismos</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Cargo: menu con listado de cargos</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Categoria: menu con listado de categorias</li>
+                                </ul>
+                            </div><!-- col-md-6 -->
+                        </div><!-- row -->
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

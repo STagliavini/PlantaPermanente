@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantillas/plantillavistas.xhtml">
+
+            <ui:define name="barrita">
+                <section class="ptb-0">
+            <div class="mb-30 brdr-ash-1 opacty-5"></div>
+            <div class="container">
+                <a class="mt-10" href="agregarOrganismo.xhtml"><i class="mr-5 ion-ios-home"></i>Organismos<i class="mlr-10 ion-chevron-right"></i></a>
+                <a class="color-ash mt-10" href="listarOrganismo.xhtml">Listado</a>
+            </div><!-- container -->
+        </section>
+            </ui:define>
+
+            <ui:define name="contenido">
+                <section>
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-8">
+                        <h3><b>LISTADO DE ORGANISMOS</b></h3>
+                        <p class="mb-30 mr-100 mr-sm-0">Liste los datos de los organismos</p>
+                        <h:dataTable class="table" value="#{listarOrganismo.organismos}" var="p">
+                <h:column>
+                    <f:facet name="header">Codigo</f:facet>
+                        #{p.codigoOrganismo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Nombre</f:facet>
+                    <h:outputText value="#{p.nombreOrganismo}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Direccion</f:facet>
+                    #{p.direccionOrganismo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Telefono</f:facet>
+                    #{p.telefonoOrganismo}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Mail</f:facet>
+                    #{p.mailOrganismo}
+                </h:column>
+            </h:dataTable>
+                    </div><!-- col-md-6 -->
+
+                </div><!-- row -->
+            </div><!-- container -->
+        </section>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

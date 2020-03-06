@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700" rel="stylesheet"></link>
+        <link href="../resources/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/css/styles.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/fonts/ionicons.css" rel="stylesheet" type="text/css"/>
+        <title>Planta Permanente</title>
+    </h:head>
+
+    <h:body>
+        <header>
+            <div class="container">
+                <a class="logo" href="index.html"><img src="../resources/images/logo-black.png" alt="Logo"/></a>
+                <a class="menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a>
+
+                <ul class="main-menu" id="main-menu">
+                    <h:panelGroup layout="block" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or
+                                                             loginManager.usuarioActual.tipoUsuario=='Empleado' or loginManager.usuarioActual.tipoUsuario=='AOrganismo'}">
+                        <li class="drop-down"><a href="agregarEmpleado.xhtml">EMPLEADOS<i class="ion-arrow-down-b"></i></a>
+                            <ul class="drop-down-menu drop-down-inner">
+                                <li><h:link outcome="agregarEmpleado.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin'}">ALTAS</h:link></li>
+                                <li><h:link outcome="eliminarEmpleado" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin'}">BAJAS</h:link></li>
+                                <li><h:link outcome="modificarEmpleado.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin'}">MODIFICACIONES</h:link></li>
+                                <li><h:link outcome="listarEmpleados.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or loginManager.usuarioActual.tipoUsuario=='Empleado' or loginManager.usuarioActual.tipoUsuario=='AOrganismo'}">LISTADO</h:link></li>
+                            </ul>
+                        </li>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin'}">
+                        <li class="drop-down"><a href="agregarCargo.xhtml">CARGOS<i class="ion-arrow-down-b"></i></a>
+                            <ul class="drop-down-menu drop-down-inner">
+                                <li><h:link outcome="agregarCargo.xhtml">ALTAS</h:link></li>
+                                <li><h:link outcome="eliminarCargo">BAJAS</h:link></li>
+                                <li><h:link outcome="modificarCargo.xhtml">MODIFICACIONES</h:link></li>
+                                <li><h:link outcome="listarCargo.xhtml">LISTADO</h:link></li>
+                            </ul>
+                        </li>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin'}">
+                        <li class="drop-down"><a href="agregarCategoria.xhtml">CATEGORIAS<i class="ion-arrow-down-b"></i></a>
+                        <ul class="drop-down-menu drop-down-inner">
+                            <li><h:link outcome="agregarCategoria.xhtml">ALTAS</h:link></li>
+                            <li><h:link outcome="eliminarCategoria">BAJAS</h:link></li>
+                            <li><h:link outcome="modificarCategoria.xhtml">MODIFICACIONES</h:link></li>
+                            <li><h:link outcome="listarCategoria.xhtml">LISTADO</h:link></li>
+                        </ul>
+                    </li>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or loginManager.usuarioActual.tipoUsuario=='AOrganismo'}">
+                        <li class="drop-down"><a href="agregarOrganismo.xhtml">ORGANISMOS<i class="ion-arrow-down-b"></i></a>
+                        <ul class="drop-down-menu drop-down-inner">
+                            <li><h:link outcome="agregarOrganismo.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin'}">ALTAS</h:link></li>
+                            <li><h:link outcome="eliminarOrganismo" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin'}">BAJAS</h:link></li>
+                            <li><h:link outcome="modificarOrganismo.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin'}">MODIFICACIONES</h:link></li>
+                            <li><h:link outcome="listarOrganismo.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or loginManager.usuarioActual.tipoUsuario=='AOrganismo'}">LISTADO</h:link></li>
+                        </ul>
+                    </li>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or loginManager.usuarioActual.tipoUsuario=='AOrganismo' or
+                                                             loginManager.usuarioActual.tipoUsuario=='Empleado' or loginManager.usuarioActual.tipoUsuario=='ARecibo'}">
+                        <li class="drop-down"><a href="agregarCargo_Empleado.xhtml">CARGOSxEMPLEADOS<i class="ion-arrow-down-b"></i></a>
+                        <ul class="drop-down-menu drop-down-inner">
+                            <li><h:link outcome="agregarCargo_Empleado.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or loginManager.usuarioActual.tipoUsuario=='AOrganismo'}">ALTAS</h:link></li>
+                            <li><h:link outcome="eliminarCargo_Empleado.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or loginManager.usuarioActual.tipoUsuario=='AOrganismo'}">BAJAS</h:link></li>
+                            <li><h:link outcome="modificarCargo_Empleado.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or loginManager.usuarioActual.tipoUsuario=='AOrganismo' or loginManager.usuarioActual.tipoUsuario=='ARecibo'}">MODIFICACIONES</h:link></li>
+                            <li><h:link outcome="listarCargoEmpleado.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or loginManager.usuarioActual.tipoUsuario=='AOrganismo' or
+                                                             loginManager.usuarioActual.tipoUsuario=='Empleado'}">LISTADO</h:link></li>
+                        </ul>
+                    </li>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or loginManager.usuarioActual.tipoUsuario=='AOrganismo' or
+                                                             loginManager.usuarioActual.tipoUsuario=='Empleado' or loginManager.usuarioActual.tipoUsuario=='ARecibo'}">
+                        <li class="drop-down"><a href="alta_bajaPeriodo.xhtml">LIQUIDACION<i class="ion-arrow-down-b"></i></a>
+                            <ul class="drop-down-menu drop-down-inner">
+                                <li><h:link outcome="alta_bajaPeriodo.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or loginManager.usuarioActual.tipoUsuario=='ARecibo'}">PERIODO</h:link></li>
+                                <li><h:link outcome="generarRecibo.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or loginManager.usuarioActual.tipoUsuario=='ARecibo'}">GENERACION</h:link></li>
+                                <li><h:link outcome="imprimirRecibo.xhtml" rendered="#{loginManager.usuarioActual.tipoUsuario=='Admin' or loginManager.usuarioActual.tipoUsuario=='ARecibo' or loginManager.usuarioActual.tipoUsuario=='Empleado' or loginManager.usuarioActual.tipoUsuario=='AOrganismo'}">IMPRESION</h:link></li>
+                            </ul>
+                        </li>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block">
+                        <li class="drop-down"><a href="cambiarContrasenia.xhtml"><i class="ion-android-contact"></i><i class="ion-arrow-down-b"></i></a>
+                            <ul class="drop-down-menu drop-down-inner">
+                                <h:form>
+                                    <li><h:commandLink action="#{loginManager.logout()}">CERRAR SESION</h:commandLink></li>
+                                    <li><h:link outcome="cambiarContrasenia.xhtml">CAMBIAR CONTRASENIA</h:link></li>
+                                </h:form>
+                            </ul>
+                        </li>
+                    </h:panelGroup>
+                </ul>
+                <div class="clearfix"></div>
+            </div><!-- container -->
+        </header>
+        <ui:insert name="barrita">
+
+        </ui:insert>
+        <ui:insert name="contenido">
+
+        </ui:insert>
+        <footer class="bg-191 color-ccc">
+
+            <div class="container">
+                <div class="pt-50 pb-20 pos-relative">
+                    <div class="abs-tblr pt-50 z--1 text-center">
+                        <div class="h-80 pos-relative"><img class="opacty-1 h-100 w-auto" src="../resources/images/map.png" alt=""/></div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            <div class="mb-30">
+                                <a href="#"><img src="../resources/images/logo-white.png"/></a>
+                                <p class="mtb-20 color-ccc">La direccion de informatica es la encargada de desarrollo y mantenimiento de software
+                                necesarios para la administracion publica</p>
+                            </div><!-- mb-30 -->
+                        </div><!-- col-md-4 -->
+
+                        <div class="col-sm-4">
+                            <div class="mb-30">
+                                <h5 class="color-primary mb-20"><b>DESARROLADOR 1</b></h5>
+                                <div class="mb-20">
+                                    <p class="color-white"><b>TAGLIAVINI, SANTIAGO ANTONIO</b></p>
+                                    <p class="color-white"><b>LEGAJO: 16/17</b></p>
+                                </div>
+                            </div><!-- mb-30 -->
+                        </div><!-- col-md-4 -->
+
+                        <div class="col-sm-4">
+                            <div class="mb-30">
+                                <h5 class="color-primary mb-20"><b>DESARROLLADOR 2</b></h5>
+                                <div class="mb-20">
+                                    <p class="color-white"><b>FARIAS, MAYRA</b></p>
+                                    <p class="color-white"><b>LEGAJO: 378/17</b></p>
+                                </div>
+                            </div><!-- mb-30 -->
+                        </div><!-- col-md-4 -->
+
+                    </div><!-- row -->
+                </div><!-- ptb-50 -->
+
+            </div><!-- container -->
+        </footer>
+        <script src="../resources/css/bootstrap.js" type="text/javascript"></script>
+        <script src="../resources/css/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="../resources/css/scripts.js" type="text/javascript"></script>
+        <script src="../resources/css/tether.min.js" type="text/javascript"></script>
+    </h:body>
+
+</html>

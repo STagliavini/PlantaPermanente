@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../plantillas/plantillavistas.xhtml">
+
+            <ui:define name="barrita">
+                <section class="ptb-0">
+                    <div class="mb-30 brdr-ash-1 opacty-5"></div>
+                    <div class="container">
+                        <a class="mt-10" href="agregarCategoria.xhtml"><i class="mr-5 ion-ios-home"></i>Categoria<i class="mlr-10 ion-chevron-right"></i></a>
+                        <a class="color-ash mt-10" href="listarCategoria.xhtml">Listado</a>
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+            <ui:define name="contenido">
+                <section>
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-8">
+                                <h3><b>LISTADO DE CATEGORIAS</b></h3>
+                                <p class="mb-30 mr-100 mr-sm-0">Lista los datos de las categorias</p>
+                                <h:dataTable class="table" value="#{listarCategoria.categorias}" var="p">
+                                    <h:column>
+                                        <f:facet name="header">Codigo</f:facet>
+                                            #{p.codigoCategoria}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Sueldo Basico</f:facet>
+                                            #{p.sueldoCategoria}
+                                    </h:column>                
+                                </h:dataTable>
+                            </div><!-- col-md-6 -->
+
+                        </div><!-- row -->
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

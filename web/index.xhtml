@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+
+        <ui:composition template="./plantillas/plantilla.xhtml">
+
+            <ui:define name="contenido">
+                <div id="login" class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="login well well-sm">
+                        <div class="center">
+                            <img src="resources/images/logo-black.png" alt="logo"/>
+                        </div>
+                        <h:form class="login-form" id="UserLoginForm">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="ion-android-contact"></i></span>
+                                    <h:inputText class="form-control" value="#{loginManager.nombreUsuario}" a:placeholder="Usuario"></h:inputText>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="ion-android-lock"></i></span>
+                                    <h:inputSecret class="form-control" value="#{loginManager.contraseniaUsuario}" a:placeholder="Contrasenia"></h:inputSecret> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:commandButton class="btn btn-primary btn-lg btn-block" value="Acceder" action="#{loginManager.login()}"/> 
+                            </div>
+                        </h:form>
+                    </div><!--/.login-->
+                </div><!--/.span12-->
+            </div><!--/.row-fluid-->
+        </div><!--/.container-->
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

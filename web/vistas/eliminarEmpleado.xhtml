@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../plantillas/plantillavistas.xhtml">
+
+            <ui:define name="barrita">
+                <section class="ptb-0">
+                    <div class="mb-30 brdr-ash-1 opacty-5"></div>
+                    <div class="container">
+                        <a class="mt-10" href="agregarEmpleado.xhtml"><i class="mr-5 ion-ios-home"></i>Empleados<i class="mlr-10 ion-chevron-right"></i></a>
+                        <a class="color-ash mt-10" href="eliminarEmpleado.xhtml">Bajas</a>
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+            <ui:define name="contenido">
+                <section>
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-8">
+                                <h3><b>BAJAS DE EMPLEADOS</b></h3>
+                                <p class="mb-30 mr-100 mr-sm-0">Dar de baja a un empleado</p>
+                                <h:form class="form-block form-bold form-mb-20 form-h-35 form-brdr-b-grey pr-50 pr-sm-0">
+                                    <div class="row">
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">DNI</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{eliminarEmpleado.emp.dniEmpleado}" id="edni" rendered="#{eliminarEmpleado.exist==false}"/>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">							
+                                            <p class="color-ash">Codigo</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{eliminarEmpleado.emp.codigoEmpleado}" id="ecodigo" rendered="#{eliminarEmpleado.exist==false}"/>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:outputText class="alert alert-warning" role="alert" rendered="#{eliminarEmpleado.isExcecuted and eliminarEmpleado.exist}" value="#{eliminarEmpleado.devolverMensaje()}"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-warning" role="alert" value="DNI: #{eliminarEmpleado.emp.dniEmpleado}.&lt;br /&gt;
+                                                          Apellido: #{eliminarEmpleado.emp.apellidoEmpleado}.&lt;br /&gt;
+                                                          Nombre: #{eliminarEmpleado.emp.nombreEmpleado}.&lt;br /&gt;
+                                                          Fecha de Nacimiento: #{eliminarEmpleado.convertFecha()}.&lt;br /&gt;
+                                                          Sexo: #{eliminarEmpleado.emp.sexoEmpleado}.&lt;br /&gt;
+                                                          Telefono: #{eliminarEmpleado.emp.telefonoEmpleado}.&lt;br /&gt;
+                                                          Direccion: #{eliminarEmpleado.emp.direccionEmpleado}.&lt;br /&gt;
+                                                          Mail: #{eliminarEmpleado.emp.mailEmpleado}.&lt;br /&gt;" escape="false" rendered="#{eliminarEmpleado.isExcecuted and eliminarEmpleado.exist}"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:commandButton class="btn btn-warning" value="Verificar" action="#{eliminarEmpleado.verificarEmpleado()}">
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                </h:form>
+                                <h:form class="form-block form-bold form-mb-20 form-h-35 form-brdr-b-grey pr-50 pr-sm-0" rendered="#{eliminarEmpleado.exist and eliminarEmpleado.emp.estadoEmpleado==true}">
+                                    <div class="row"> 
+                                        <div class="col-sm-6">
+                                            <h:commandButton class="btn btn-warning" value="Borrar" action="#{eliminarEmpleado.confirmarBaja()}">
+                                            </h:commandButton>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:commandButton class="btn btn-warning" value="Cancelar" action="#{eliminarEmpleado.cancelar()}" immediate="true">
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                </h:form>
+                                <div class="col-sm-12">
+                                    <h:outputText class="alert alert-success" role="alert" value="BAJA EXITOSA!!!!&lt;br /&gt;
+                                                  DNI: #{eliminarEmpleado.emp.dniEmpleado}.&lt;br /&gt;
+                                                  Apellido: #{eliminarEmpleado.emp.apellidoEmpleado}.&lt;br /&gt;
+                                                  Nombre: #{eliminarEmpleado.emp.nombreEmpleado}.&lt;br /&gt;
+                                                  Fecha de Nacimiento: #{eliminarEmpleado.convertFecha()}.&lt;br /&gt;
+                                                  Sexo: #{eliminarEmpleado.emp.sexoEmpleado}.&lt;br /&gt;
+                                                  Telefono: #{eliminarEmpleado.emp.telefonoEmpleado}.&lt;br /&gt;
+                                                  Direccion: #{eliminarEmpleado.emp.direccionEmpleado}.&lt;br /&gt;
+                                                  Mail: #{eliminarEmpleado.emp.mailEmpleado}.&lt;br /&gt;" escape="false" rendered="#{eliminarEmpleado.isExcecuted==false and eliminarEmpleado.exito}"></h:outputText>
+                                </div>
+                                <div class="col-sm-12">
+                                            <h:outputText class="alert alert-danger" role="alert" value="BAJA IMPOSIBLE!!!!&lt;br /&gt;
+                                                          El empleado tiene cargos asignados.&lt;br /&gt;" escape="false" rendered="#{eliminarEmpleado.isExcecuted and eliminarEmpleado.existece}"></h:outputText>
+                                        </div>
+
+                            </div><!-- col-md-6 -->
+
+                            <div class="col-sm-12 col-md-4">
+                                <h3 class="mb-20 mt-sm-50"><b>INFORMACION DE CAMPOS</b></h3>
+
+                                <ul class="font-11 list-relative list-li-pl-30 list-block list-li-mb-15">
+                                    <li><i class="abs-tl ion-android-add-circle"></i>DNI: numero, maximo de 20 digitos, no vacio.</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Codigo: maximo de 11 digitos.</li>
+                                </ul>
+                            </div><!-- col-md-6 -->
+                        </div><!-- row -->
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

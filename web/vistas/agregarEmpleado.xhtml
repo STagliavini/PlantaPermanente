@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="../plantillas/plantillavistas.xhtml">
+
+            <ui:define name="barrita">
+                <section class="ptb-0">
+                    <div class="mb-30 brdr-ash-1 opacty-5"></div>
+                    <div class="container">
+                        <a class="mt-10" href="agregarEmpleado.xhtml"><i class="mr-5 ion-ios-home"></i>Empleados<i class="mlr-10 ion-chevron-right"></i></a>
+                        <a class="color-ash mt-10" href="agregarEmpleado.xhtml">Altas</a>
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+            <ui:define name="contenido">
+                <section>
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-8">
+                                <h3><b>ALTAS DE EMPLEADOS</b></h3>
+                                <p class="mb-30 mr-100 mr-sm-0">Ingrese los datos de los empleados</p>
+                                <h:form class="form-block form-bold form-mb-20 form-h-35 form-brdr-b-grey pr-50 pr-sm-0">
+                                    <div class="row">
+
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">DNI*</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{agregarEmpleado.emp.dniEmpleado}" id="edni" validatorMessage="Debe tener un maximo de 8 digitos y un minimo de 1"
+                                                             required="true" requiredMessage="Debe ingresar el DNI" converterMessage="Debe ser un numero">
+                                                    <f:validateLongRange minimum="1" maximum="99999999"/>
+                                                    <f:convertNumber/>
+                                                </h:inputText>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">							
+                                            <p class="color-ash">Apellido*</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{agregarEmpleado.emp.apellidoEmpleado}" id="eapellido" required="true"
+                                                             requiredMessage="Debe ingresar el apellido"
+                                                             validatorMessage="Maximo de 30 caracteres">
+                                                    <f:validateLength minimum="1" maximum="30"></f:validateLength>
+                                                </h:inputText>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="edni" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="eapellido" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Nombre*</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{agregarEmpleado.emp.nombreEmpleado}" id="enombre" required="true"
+                                                             requiredMessage="Debe ingresar el nombre"
+                                                             validatorMessage="Maximo de 30 caracteres">
+                                                    <f:validateLength minimum="1" maximum="30"></f:validateLength>
+                                                </h:inputText>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Fecha de Nacimiento*</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{agregarEmpleado.emp.nacimientoEmpleado}" id="efecha" required="true"
+                                                             requiredMessage="Debe ingresar la fecha" converterMessage="Ingrese una fecha valida (dd/mm/yyyy)">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03"/>
+                                                </h:inputText>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="enombre" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="efecha" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Sexo*</p>
+                                            <div class="pos-relative">
+                                                <h:selectOneMenu class="browser-default custom-select" value="#{agregarEmpleado.emp.sexoEmpleado}"> 
+                                                    <f:selectItem itemValue = "Masculino" itemLabel = "Masculino" /> 
+                                                    <f:selectItem itemValue = "Femenino" itemLabel = "Femenino" /> 
+                                                </h:selectOneMenu> 	
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Telefono</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{agregarEmpleado.emp.telefonoEmpleado}" id="etelefono">
+                                                    <f:validator validatorId="telValidator"></f:validator>
+                                                </h:inputText>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="etelefono" class="alert alert-danger" role="alert" rendered="#{empty agregarEmpleado.emp.telefonoEmpleado}"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Direccion*</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{agregarEmpleado.emp.direccionEmpleado}" id="edireccion" required="true"
+                                                             requiredMessage="Debe ingresar la direccion" validatorMessage="Maximo de 100 caracteres">
+                                                    <f:validateLength minimum="1" maximum="100"></f:validateLength>
+                                                </h:inputText>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">	
+                                            <p class="color-ash">Mail</p>
+                                            <div class="pos-relative">
+                                                <h:inputText class="pr-20" value="#{agregarEmpleado.emp.mailEmpleado}" id="email" required="false" validatorMessage="Debe ingresar un mail valido">
+                                                    <f:validator validatorId="emailValidator"></f:validator>
+                                                </h:inputText>
+                                                <i class="dplay-none abs-tbr lh-35 font-13 color-green ion-android-done"></i>
+                                            </div><!-- pos-relative -->
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="edireccion" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <h:message for="email" class="alert alert-danger" role="alert"></h:message>
+                                        </div><!-- col-sm-6 -->
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-warning" role="alert" rendered="#{agregarEmpleado.existe}" value="#{agregarEmpleado.devolverMensaje()}"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h:commandButton class="btn btn-warning" value="Agregar" action="#{agregarEmpleado.guardarEmpleado}">
+                                            </h:commandButton>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h:commandButton class="btn btn-warning" value="Cancelar" action="#{agregarEmpleado.cancelar()}" immediate="true">
+                                            </h:commandButton>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-success" role="alert" value="INGRESO EXITOSO!!!!&lt;br /&gt;
+                                                          DNI: #{agregarEmpleado.emp.dniEmpleado}.&lt;br /&gt;
+                                                          Apellido: #{agregarEmpleado.emp.apellidoEmpleado}.&lt;br /&gt;
+                                                          Nombre: #{agregarEmpleado.emp.nombreEmpleado}.&lt;br /&gt;
+                                                          Fecha de Nacimiento: #{agregarEmpleado.convertFecha()}.&lt;br /&gt;
+                                                          Sexo: #{agregarEmpleado.emp.sexoEmpleado}.&lt;br /&gt;
+                                                          Telefono: #{agregarEmpleado.emp.telefonoEmpleado}.&lt;br /&gt;
+                                                          Direccion: #{agregarEmpleado.emp.direccionEmpleado}.&lt;br /&gt;
+                                                          Mail: #{agregarEmpleado.emp.mailEmpleado}.&lt;br /&gt;" escape="false" rendered="#{agregarEmpleado.isExcecuted and agregarEmpleado.exito}"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-success" role="alert" value="USUARIO GENERADO&lt;br /&gt;
+                                                          Nombre de Usuario:#{agregarEmpleado.usuario.nombreUsuario}&lt;br /&gt;
+                                                          Contrasenia:#{agregarEmpleado.usuario.contraseniaUsuario}&lt;br /&gt;
+                                                          Rango: Empleado" escape="false" rendered="#{agregarEmpleado.isExcecuted and agregarEmpleado.exito}"></h:outputText>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <h:outputText class="alert alert-warning" role="alert" value="INGRESO IMPOSIBLE!!!" escape="false" rendered="#{agregarEmpleado.isExcecuted==true and agregarEmpleado.exito==false}"></h:outputText>
+                                        </div> 
+                                    </div><!-- row -->
+                                </h:form>
+                            </div><!-- col-md-6 -->
+
+                            <div class="col-sm-12 col-md-4">
+                                <h3 class="mb-20 mt-sm-50"><b>INFORMACION DE CAMPOS</b></h3>
+
+                                <ul class="font-11 list-relative list-li-pl-30 list-block list-li-mb-15">
+                                    <li><i class="abs-tl ion-android-add-circle"></i>DNI: numero, maximo de 20 digitos, no vacio.</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Apellido: maximo de 30 caracteres.</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Nombre: maximo de 30 caracteres.</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Fecha de Nacimiento: dd/MM/yyyy.</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Sexo: menu con 2 opciones.</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Telefono: numero largo, maximo de 20 digitos y '+' al principio.</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Direccion: texto, maximo de 100 caracteres.</li>
+                                    <li><i class="abs-tl ion-android-add-circle"></i>Mail: texto, maximo de 30 caracteres.</li>
+                                </ul>
+                            </div><!-- col-md-6 -->
+                        </div><!-- row -->
+                    </div><!-- container -->
+                </section>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
