@@ -5,13 +5,17 @@
  */
 package servicios;
 
+import com.google.gson.Gson;
 import entidades.Empleado;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -69,6 +73,27 @@ public class EmpleadoFacadeREST extends AbstractFacade<Empleado> {
         return super.findAll();
     }
 
+    @POST
+    @Path("listado_filtrado")
+    public String findFilter(@FormParam("dni_empleado") long dni_empleado, @FormParam("codigo_empleado") int codigo_empleado) {
+        Empleado emp = new Empleado();
+        emp.setDniEmpleado(dni_empleado);
+        emp.setCodigoEmpleado(codigo_empleado);
+        String cadena = "select * from empleado e where";
+        if ((emp.getCodigoEmpleado() == null || emp.getCodigoEmpleado() == 0)) {
+            cadena = cadena + " e.codigo_empleado!=0";
+        } else {
+            cadena = cadena + " e.codigo_empleado=" + emp.getCodigoEmpleado();
+        }
+        if (emp.getDniEmpleado() == 0) {
+            cadena = cadena + " and e.dni_empleado!=0";
+        } else {
+            cadena = cadena + " and e.dni_empleado=" + emp.getDniEmpleado();
+        }
+        Query q = em.createNativeQuery(cadena);
+        Gson gson=new Gson();
+        return gson.toJson(q.getResultList());
+    }
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -87,5 +112,5 @@ public class EmpleadoFacadeREST extends AbstractFacade<Empleado> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }
