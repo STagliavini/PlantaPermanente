@@ -6,6 +6,8 @@
 package servicios;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import entidades.Empleado;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +94,7 @@ public class EmpleadoFacadeREST extends AbstractFacade<Empleado> {
         }
         Query q = em.createNativeQuery(cadena);
         Gson gson=new Gson();
-        return gson.toJson(q.getResultList());
+        return gson.toJson((List<Empleado>)q.getResultList());
     }
     @GET
     @Path("{from}/{to}")
