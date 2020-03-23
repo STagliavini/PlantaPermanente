@@ -5,9 +5,6 @@
  */
 package servicios;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import entidades.Empleado;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,27 +72,6 @@ public class EmpleadoFacadeREST extends AbstractFacade<Empleado> {
         return super.findAll();
     }
 
-    @POST
-    @Path("listado_filtrado")
-    public String findFilter(@FormParam("dni_empleado") long dni_empleado, @FormParam("codigo_empleado") int codigo_empleado) {
-        Empleado emp = new Empleado();
-        emp.setDniEmpleado(dni_empleado);
-        emp.setCodigoEmpleado(codigo_empleado);
-        String cadena = "select * from empleado e where";
-        if ((emp.getCodigoEmpleado() == null || emp.getCodigoEmpleado() == 0)) {
-            cadena = cadena + " e.codigo_empleado!=0";
-        } else {
-            cadena = cadena + " e.codigo_empleado=" + emp.getCodigoEmpleado();
-        }
-        if (emp.getDniEmpleado() == 0) {
-            cadena = cadena + " and e.dni_empleado!=0";
-        } else {
-            cadena = cadena + " and e.dni_empleado=" + emp.getDniEmpleado();
-        }
-        Query q = em.createNativeQuery(cadena);
-        Gson gson=new Gson();
-        return gson.toJson((List<Empleado>)q.getResultList());
-    }
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

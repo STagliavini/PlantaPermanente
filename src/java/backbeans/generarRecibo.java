@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -66,6 +67,7 @@ public class generarRecibo implements Serializable {
     private PeriodoDAO servper;
     private Periodo per;
     private boolean hayperActivo;
+    private Calendar c;
 
     public generarRecibo() {
 
@@ -94,9 +96,10 @@ public class generarRecibo implements Serializable {
                 int dif = servicio.datediff(per.getFechaInicio(), fech2);
                 if (dif <= 0) {
                     recibo.getReciboSueldoPK().setFechaLiquidacion(fech);
-                }
-                else{
-                    hayperActivo=false;
+                    c = Calendar.getInstance();
+                    c.setTime(recibo.getReciboSueldoPK().getFechaLiquidacion());
+                } else {
+                    hayperActivo = false;
                 }
             } catch (ParseException e) {
                 System.out.println(e.getMessage());
@@ -105,10 +108,11 @@ public class generarRecibo implements Serializable {
     }
 
     public void generar() throws ParseException {
-        /*Date fech = null;
+        int dia = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int mes = c.get(Calendar.MONTH);
+        int anio = c.get(Calendar.YEAR);
         DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        fech = formatoFecha.parse(servper.extraer(per.getPeriodo()));
-        recibo.getReciboSueldoPK().setFechaLiquidacion(fech);*/
+        recibo.getReciboSueldoPK().setFechaLiquidacion(formatoFecha.parse(dia + "/" + mes + "/" + anio));
         cantidad_recibos = 0;
         isExecuted = true;
         for (int i = 0; i < cemps.size(); i++) {
