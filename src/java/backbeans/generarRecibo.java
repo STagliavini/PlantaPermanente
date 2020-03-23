@@ -96,8 +96,6 @@ public class generarRecibo implements Serializable {
                 int dif = servicio.datediff(per.getFechaInicio(), fech2);
                 if (dif <= 0) {
                     recibo.getReciboSueldoPK().setFechaLiquidacion(fech);
-                    c = Calendar.getInstance();
-                    c.setTime(recibo.getReciboSueldoPK().getFechaLiquidacion());
                 } else {
                     hayperActivo = false;
                 }
@@ -108,8 +106,10 @@ public class generarRecibo implements Serializable {
     }
 
     public void generar() throws ParseException {
+        c = Calendar.getInstance();
+        c.setTime(recibo.getReciboSueldoPK().getFechaLiquidacion());
         int dia = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-        int mes = c.get(Calendar.MONTH);
+        int mes = c.get(Calendar.MONTH)+1;
         int anio = c.get(Calendar.YEAR);
         DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         recibo.getReciboSueldoPK().setFechaLiquidacion(formatoFecha.parse(dia + "/" + mes + "/" + anio));
